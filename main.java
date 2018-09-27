@@ -1,7 +1,3 @@
-/**
- * @author adrien
- *
- */
 public class main {
 
 	/**
