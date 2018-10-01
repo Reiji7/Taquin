@@ -80,6 +80,7 @@ public class Controller_Game {
 			
 			board.play(depart, destination);
 			board.out();
+			p1.setScore(board.getMoves());
 		}while(!board.check());
 	}
 

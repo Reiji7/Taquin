@@ -10,14 +10,12 @@ import controller.Controller_Game;
 public class Model_Board {
 
 	private Model_Piece[] board;
-	private int score;
 	private int moves;
 	private long time;
 	
 	
 	public Model_Board() {
 		this.board = new Model_Piece[Controller_Game.SIZE * Controller_Game.SIZE];
-		this.score = 10000;
 		this.moves = 0;
 		this.time = System.currentTimeMillis();
 		
@@ -25,16 +23,7 @@ public class Model_Board {
 			board[index] = new Model_Piece(index);
 		}
 	}
-	
-	
-	/**
-	 * Give Score
-	 * @return score
-	 */
-	public int getScore() {
-		return this.score;
-	}
-	
+		
 	
 	/**
 	 * Give number of move in this game
@@ -85,7 +74,6 @@ public class Model_Board {
 					depart == destination + Controller_Game.SIZE ||
 					depart == destination - Controller_Game.SIZE ) {
 
-				setScore(-(moves * 2));
 				this.moves++;
 				
 				return move(depart, destination);
@@ -126,26 +114,14 @@ public class Model_Board {
 		}
 		return false;
 	}
-	
-	
 
 
 	/**
 	 *  Set score to 0
 	 */
 	public void init() {
-		this.score = 0;
 		this.moves = 0;
 		this.time = System.currentTimeMillis();
-	}
-	
-	
-	/**
-	 * Modify Score
-	 * @param add
-	 */
-	private void setScore(int add) {
-		this.score += add;
 	}
 
 

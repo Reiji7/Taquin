@@ -9,10 +9,12 @@ package model.game;
 public class Model_Player {
 	
 	private String name;	// Player's name
-	
+	private int score;
+
 	
 	public Model_Player(String name) {
 		this.name = name;
+		this.score = 10000;
 	}
 	
 	
@@ -22,5 +24,27 @@ public class Model_Player {
 	 */
 	public String getName() {
 		return this.name;
+	}
+	
+	
+	/**
+	 * Give Score
+	 * @return score
+	 */
+	public int getScore() {
+		return this.score;
+	}
+	
+	
+	/**
+	 * Modify Score
+	 * @param add
+	 */
+	public void setScore(int moves) {
+		setScore(-(moves * 2));
+	}
+	
+	public void init() {
+		score  = 10000;
 	}
 }
