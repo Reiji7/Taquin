@@ -14,7 +14,6 @@ public class Controller_Game {
 
 	private Model_Board board;
 	private Model_Player p1;
-	private boolean p1Turn;
 	private boolean format;
 	
 	public static int SIZE;
@@ -38,7 +37,6 @@ public class Controller_Game {
 				System.out.println("What's your name ?");
 				Configuration.sc.nextLine();
 				this.p1 = new Model_Player(Configuration.sc.nextLine());
-				this.p1Turn = true;
 			}catch(java.util.InputMismatchException e) {
 				format = false;
 			}

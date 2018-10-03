@@ -110,6 +110,7 @@ public class Model_Board {
 					return false;
 				}
 			}
+			System.out.println("You win !");
 			return true;
 		}
 		return false;
