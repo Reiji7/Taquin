@@ -55,9 +55,11 @@ public class Controller_Game {
 		int depart = 0, destination = 0;
 		
 		do {
+			
 			do {
 				try {
 					format = true;
+					Configuration.sc.nextLine();
 					System.out.println(p1.getName() + " what piece you want to move ?");
 					depart = Configuration.sc.nextInt();
 				}catch(java.util.InputMismatchException e) {
@@ -69,6 +71,7 @@ public class Controller_Game {
 			do {
 				try {
 					format = true;
+					Configuration.sc.nextLine();
 					System.out.println(p1.getName() + " where do you want to move ?");
 					destination = Configuration.sc.nextInt();
 				}catch(java.util.InputMismatchException e) {
@@ -79,6 +82,7 @@ public class Controller_Game {
 			board.play(depart, destination);
 			board.out();
 			p1.setScore(board.getMoves());
+			
 		}while(!board.check());
 	}
 

@@ -41,7 +41,7 @@ public class Model_Player {
 	 * @param add
 	 */
 	public void setScore(int moves) {
-		setScore(-(moves * 2));
+		//setScore(-(moves * 2));
 	}
 	
 	public void init() {
