@@ -11,6 +11,7 @@ public class Model_Board {
 
 	private Model_Piece[] board;
 	private int moves;
+	private int posZ;
 	private long time;
 	
 	
@@ -50,6 +51,11 @@ public class Model_Board {
 		for(int index = 0; index < board.length; index ++) {
 			move(index, (int)(Math.random() * Controller_Game.SIZE * Controller_Game.SIZE));
 		}
+		for(int index = 0; index < board.length; index ++) {
+			if(board[index].getNumber() == 0){
+				this.posZ = index;	
+			}
+		}
 	}
 
 	
@@ -67,19 +73,38 @@ public class Model_Board {
 	 * @param destination
 	 * @return 
 	 */
-	public boolean play(int depart, int destination) {
-		if(board[depart].getNumber() == 0 || board[destination].getNumber() == 0) {
-			if(depart == destination + 1 ||
-					depart == destination - 1 ||
-					depart == destination + Controller_Game.SIZE ||
-					depart == destination - Controller_Game.SIZE ) {
-
-				this.moves++;
-				
-				return move(depart, destination);
-			}
-		}
+	public boolean play(String move) {
 		
+		switch(move) {
+		case "up":
+			if(posZ + Controller_Game.SIZE < (Controller_Game.SIZE * Controller_Game.SIZE)) {
+				this.moves++;
+				return move(posZ, posZ + Controller_Game.SIZE);
+			}
+		break;
+		
+		case "down":
+			if(posZ - Controller_Game.SIZE > -1 ) {
+				this.moves++;
+				return move(posZ, posZ - Controller_Game.SIZE);
+			}
+		break;
+		
+		case "left":
+			if(posZ-1 % Controller_Game.SIZE != 0) {
+				this.moves++;
+				return move(posZ, posZ + 1);
+			}
+		break;
+		
+		case "right":
+			if(posZ % Controller_Game.SIZE != 0) {
+				this.moves++;
+				return move(posZ, posZ - 1);
+			}
+		break;
+
+		}
 		return false;
 	}
 
@@ -91,14 +116,16 @@ public class Model_Board {
 	 * @return
 	 */
 	private boolean move(int depart, int destination) {
-		if(destination >= 0 && destination <= Controller_Game.SIZE * Controller_Game.SIZE -1) {
+		try {
 			Model_Piece tampon = board[destination];
 			board[destination] = board[depart];
 			board[depart] = tampon;
 			
+			this.posZ = destination;
+			
 			return true;
 		}
-		
+		catch(java.lang.ArrayIndexOutOfBoundsException e) {}
 		return false;
 	}
 

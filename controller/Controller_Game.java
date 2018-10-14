@@ -52,37 +52,27 @@ public class Controller_Game {
 	
 	
 	public void play() {
-		int depart = 0, destination = 0;
+		String move = "";
 		
 		do {
 			
 			do {
 				try {
 					format = true;
-					Configuration.sc.nextLine();
-					System.out.println(p1.getName() + " what piece you want to move ?");
-					depart = Configuration.sc.nextInt();
+					System.out.println(p1.getName() + " how do you want move ?");
+					move = Configuration.sc.nextLine();
 				}catch(java.util.InputMismatchException e) {
 					format = false;
 				}
 			}while(!format);
+
+			if(!board.play(move)) {
+				System.out.println("Bad entry !");
+			}
 			
-			
-			do {
-				try {
-					format = true;
-					Configuration.sc.nextLine();
-					System.out.println(p1.getName() + " where do you want to move ?");
-					destination = Configuration.sc.nextInt();
-				}catch(java.util.InputMismatchException e) {
-					format = false;
-				}
-			}while(!format);
-			
-			board.play(depart, destination);
 			board.out();
 			p1.setScore(board.getMoves());
-			
+
 		}while(!board.check());
 	}
 
