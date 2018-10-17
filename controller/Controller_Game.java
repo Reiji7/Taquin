@@ -45,6 +45,11 @@ public class Controller_Game {
 		
 		this.board = new Model_Board();
 		board.shuffle();
+
+		while(board.check()){
+			board.shuffle();
+		}
+
 		board.out();
 		
 		play();
