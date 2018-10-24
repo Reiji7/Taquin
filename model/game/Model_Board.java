@@ -132,7 +132,7 @@ public class Model_Board {
 	
 	public boolean check() {
 		if(board[0].getNumber() == 1 && board[Controller_Game.SIZE - 1].getNumber() == 0) {
-			for(int index = 0; index < Controller_Game.SIZE; index++) {				// peut etre mettre la taille en moin 1
+			for(int index = 0; index < Controller_Game.SIZE-1; index++) {				
 				if(board[index].getNumber() != board[index+1].getNumber() + 1) {
 					return false;
 				}
