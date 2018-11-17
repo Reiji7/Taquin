@@ -10,12 +10,12 @@ import java.util.Observable;
 public class Model_Player extends Observable{
 	
 	private String name;	// Player's name
-	private int score;
+	private int nbMoves;
 
 	
 	public Model_Player(String name) {
 		this.name = name;
-		this.score = 10000;
+		this.nbMoves = 0;
 	}
 	
 	
@@ -32,8 +32,8 @@ public class Model_Player extends Observable{
 	 * Give Score
 	 * @return score
 	 */
-	public int getScore() {
-		return this.score;
+	public int getNbMoves() {
+		return this.nbMoves;
 	}
 	
 	
@@ -41,11 +41,8 @@ public class Model_Player extends Observable{
 	 * Modify Score
 	 * @param add
 	 */
-	public void setScore(int moves) {
-		//setScore(-(moves * 2));
+	public void setNbMoves(int moves) {
+		nbMoves = nbMoves + 1 ;
 	}
 	
-	public void init() {
-		score  = 10000;
-	}
 }

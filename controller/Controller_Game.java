@@ -79,7 +79,7 @@ public class Controller_Game {
 			}
 			
 			board.out();
-			p1.setScore(board.getMoves());
+			p1.setNbMoves(board.getMoves());
 
 		}while(!board.check());
 	}
