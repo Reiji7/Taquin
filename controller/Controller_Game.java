@@ -25,6 +25,9 @@ public class Controller_Game {
 				format = true;
 				System.out.println("How size is your grid ?");
 				SIZE = Configuration.sc.nextInt();
+				if (SIZE < 3) {
+					format = false;
+				}
 			}catch(java.util.InputMismatchException e) {
 				format = false;
 			}
