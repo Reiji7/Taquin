@@ -1,5 +1,6 @@
 package model.game;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 import controller.Controller_Game;
@@ -9,8 +10,9 @@ import controller.Controller_Game;
  * @author Adrien
  * @version 1.0 
  */
-public class Model_Board extends Observable{
+public class Model_Board extends Observable implements Serializable{
 
+	private static final long serialVersionUID = -8157892195810236408L;
 	private Model_Piece[] board;
 	private int moves;
 	private int posZ;
