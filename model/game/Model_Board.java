@@ -64,7 +64,7 @@ public class Model_Board extends Observable{
 	/**
 	 * Give board status
 	 */
-	protected Model_Piece[] getBoard(){
+	public Model_Piece[] getBoard(){
 		return this.board;
 	}
 	
