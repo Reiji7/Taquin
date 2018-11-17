@@ -1,12 +1,13 @@
 package model.game;
 
+import java.util.Observable;
 
 /**
  * Player who can move pieces
  * @author Adrien
  * @version 1.0 
  */
-public class Model_Player {
+public class Model_Player extends Observable{
 	
 	private String name;	// Player's name
 	private int score;

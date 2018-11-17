@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package application;
+package view;
 
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
-import controller.Controller_Game;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,12 +18,10 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import model.game.Model_Board;
-import model.game.Model_Player;
-//import javafx.scene.paint.Color;
-//import javafx.scene.text.Font;
 
-public class FXMLDocumentController implements Initializable {
+
+
+public class View implements Initializable, Observer {
     /*
      * 
      */
@@ -43,24 +42,22 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private GridPane grid;
     
-    int SIZE = Controller_Game.SIZE;	//récupèe la taille de la grille
-    int cpt = 0;	//compte le nombre de mouvements effectués par le joueur 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	//TODO
     	System.out.println("le controleur initialise la vue");
     	
-    	/*for(int i = SIZE; i > 3; i++) {
-    		for(int j = SIZE; j > 3; j++) {
+    	/*for(int i = Controller_Game.SIZE; i > 3; i++) {
+    		for(int j = Controller_Game.SIZE; j > 3; j++) {
     			Label label = new Label();
     		    GridPane.setConstraints(label, i, j);	
     		    grid.getChildren().addAll();
     		}
     	}
     	
-    	for(int i = 0; i <= SIZE; i++) {
-    		for(int j = 0; j <= SIZE; j++) {
+    	for(int i = 0; i <= Controller_Game.SIZE; i++) {
+    		for(int j = 0; j <= Controller_Game.SIZE; j++) {
     			getNodeByRowColumnIndex(i, j, grid).getChildren().setText(Model_Board.board[i + j]);
     		}
     	}
@@ -93,8 +90,13 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public String cptToString() {
-    	String str = Integer.toString(cpt);
+    	String str = Integer.toString(0);
     	return str;
     }
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		
+	}
     
 }
