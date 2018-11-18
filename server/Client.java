@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.UUID;
 
 
-public class Client implements Runnable, Treatment {
+public class Client extends Treatment implements Runnable {
 
 	private String login;
 	private String id;
@@ -59,13 +60,25 @@ public class Client implements Runnable, Treatment {
 	public void run() {
 		while(true) {
 			try {
-				
-				String message = in.readLine();
-				
+				parser(in.readLine());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+
+	private void parser(String readLine) {
+		
+		ArrayList<String> command = new ArrayList<>();
+		
+		Configuration.sc.useDelimiter(" ");
+		while(Configuration.sc.hasNext()){
+			command.add(Configuration.sc.next());
+		}
+		
+		this.treatment(command);
+		
 	}
 
 }
