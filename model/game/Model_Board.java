@@ -95,7 +95,7 @@ public class Model_Board extends Observable implements Serializable{
 		break;
 		
 		case "left":
-			if(posZ-1 % Controller_Game.SIZE != 0) {
+			if(posZ+1 % Controller_Game.SIZE != 0) {
 				this.moves++;
 				return move(posZ, posZ + 1);
 			}
@@ -107,7 +107,8 @@ public class Model_Board extends Observable implements Serializable{
 				return move(posZ, posZ - 1);
 			}
 		break;
-
+		case "save":
+			return move(posZ, posZ);	
 		}
 		return false;
 	}
