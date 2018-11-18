@@ -1,6 +1,8 @@
 package application;
 
 
+import java.io.IOException;
+
 import controller.Controller_Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +14,7 @@ public class Controller_Main extends Application{
 
 	private Controller_Game controller_game;
 	
-	public void start() {
+	public void start() throws IOException {
 		controller_game = new Controller_Game();
 		controller_game.start();
 	}
@@ -28,7 +30,7 @@ public class Controller_Main extends Application{
         stage.show();
     }
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		launch();
 
 		Controller_Main controller = new Controller_Main();
