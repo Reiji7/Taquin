@@ -43,7 +43,7 @@ public class Controller_Game implements Serializable{
 		
 		boolean formatDeserialization1 = true;
 
-		// faire modif pour que ça soit demander seulement si le joueur le demande
+		// faire modif pour que ï¿½a soit demander seulement si le joueur le demande
 		if (!initialize){
 			
 			// Deserialization board
@@ -151,7 +151,6 @@ public class Controller_Game implements Serializable{
 				try {
 					format = true;
 					System.out.println("What's your name ?");
-					Configuration.sc.nextLine();
 					this.p1 = new Model_Player(Configuration.sc.nextLine());
 				}catch(java.util.InputMismatchException e) {
 					format = false;
@@ -161,19 +160,11 @@ public class Controller_Game implements Serializable{
 			
 			this.board = new Model_Board();
 			board.shuffle();
-	
-			while(board.check()){
-				board.shuffle();
-			}
-			
-		/**
-		}
-		**/
-				
-		board.out();
-					
+
+
+		board.out();	
 		play();
-				
+
 	}
 	
 	
@@ -195,13 +186,11 @@ public class Controller_Game implements Serializable{
 	
 	
 	public void play() {
-		move = "";
 		do {
-			
 			do {
 				try {
 					format = true;
-					move = "";
+					move = new String();
 					System.out.println(p1.getName() + " how do you want move ?");
 					move = Configuration.sc.nextLine();
 
@@ -263,7 +252,7 @@ public class Controller_Game implements Serializable{
 			board.out();
 			p1.setNbMoves(board.getMoves());
 
-		}while(!board.check());
+		}while(true);
 	}
 
 }
