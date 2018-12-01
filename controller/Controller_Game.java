@@ -173,8 +173,8 @@ public class Controller_Game implements Serializable{
 		// if file exist return false and the game load the game
 		try {
 			
-			Path pathBoard = Paths.get("C://Users//Christian poratble//git//Taquin//board.ser");
-			Path pathPlayer = Paths.get("C://Users//Christian poratble//git//Taquin//p1.ser");
+			Path pathBoard = Paths.get("..//Taquin//board.ser");
+			Path pathPlayer = Paths.get("..//Taquin//p1.ser");
 			
 			return (false);
 			
@@ -252,7 +252,7 @@ public class Controller_Game implements Serializable{
 			board.out();
 			p1.setNbMoves(board.getMoves());
 
-		}while(true);
+		}while(!board.check());
 	}
 
 }

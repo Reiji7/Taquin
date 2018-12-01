@@ -133,6 +133,37 @@ public class Model_Board extends Observable implements Serializable{
 	
 	
 	/**
+	 * checking board if he's in final state
+	 * @return 
+	 */
+	public boolean check() {
+		
+		boolean test = true;
+		int index = 1;
+		
+		if ((this.board[0][0].getNumber() == 1)&&(board[Controller_Game.SIZE-1][Controller_Game.SIZE-1].getNumber() == 0)) { 
+				
+			while(test = true && index < ((Controller_Game.SIZE)*2)) {
+				for(int index1 = 0; index1 < Controller_Game.SIZE ; index1++) {
+					for(int index2 = 0; index2 < Controller_Game.SIZE ; index2++) {
+						test = (board[index1][index2].getNumber() == index);
+						index ++;	
+					}				
+				}
+			}
+			if(test == true) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}	
+		else {
+			return false;
+		}
+	}
+	
+	/**
 	 * Move a piece on board from shuffle
 	 * @param depart
 	 * @param destination
