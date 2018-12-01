@@ -32,8 +32,5 @@ public class Controller_Main extends Application{
 	
 	public static void main(String[] args) throws IOException {
 		launch();
-
-		Controller_Main controller = new Controller_Main();
-		controller.start();
 	}
 }
