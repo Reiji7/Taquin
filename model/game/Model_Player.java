@@ -14,7 +14,7 @@ public class Model_Player extends Observable implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 6820116923434799219L;
-	private String name;	// Player's name
+	public static String name;	// Player's name
 	private int nbMoves;
 
 	

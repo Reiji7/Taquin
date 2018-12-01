@@ -27,4 +27,9 @@ public class Model_Piece implements Serializable{
 	public int getNumber() {
 		return this.number;
 	}
+	
+	@Override
+	public String toString() {
+		return Integer.toString(number);
+	}
 }
