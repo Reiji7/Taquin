@@ -23,6 +23,11 @@ public class Model_Player extends Observable implements Serializable{
 		this.nbMoves = 0;
 	}
 	
+	public Model_Player (String name, int score) {
+		this.name = name;
+		this.nbMoves = score;
+	}
+	
 	
 	/**
 	 * Give name
@@ -31,7 +36,6 @@ public class Model_Player extends Observable implements Serializable{
 	public String getName() {
 		return this.name;
 	}
-	
 	
 	/**
 	 * Give Score

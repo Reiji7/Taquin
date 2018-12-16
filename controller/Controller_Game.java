@@ -1,6 +1,7 @@
 package controller;
 
 import model.game.Model_Board;
+import model.game.Model_Piece;
 import model.game.Model_Player;
 import resources.Configuration;
 
@@ -35,32 +36,81 @@ public class Controller_Game implements Serializable{
 	
 	public void start() throws IOException {
 		
-		/**
-		ObjectInputStream ois = null;
+		
+		ObjectInputStream oisBoard = null;
+		ObjectInputStream oisBoardPosZ = null;
+		ObjectInputStream oisBoardTime = null;
+		
+		ObjectInputStream oisP1Name = null;
+		ObjectInputStream oisP1Score = null;
 		
 		boolean initialize = initialize();
+
+		boolean load = false;
+		boolean test = false;
 		
+		//System.out.println(initialize);
+		
+		if (!initialize){
+			do{
+				format = true;
+				System.out.println("Do you want load the last game ? [y][n] ");
+				String answerLoad = Configuration.sc.nextLine();
+				switch(answerLoad) {
+				 case "y":
+				 	load = true;
+				 	test = true;
+				 	break;
+				 
+				 case "n":
+				 	load = false;
+				 	test = true;
+				 	break;
+				 	
+				 default:
+				 	System.out.println("Error");		
+				}
+			}while(test==false);
+		}
 		
 		boolean formatDeserialization1 = true;
+		
+		if (!initialize && load == true){
 
-		// faire modif pour que �a soit demander seulement si le joueur le demande
-		if (!initialize){
-			
 			// Deserialization board
 			do {
 				try {
 					formatDeserialization1 = true;
-					final FileInputStream fichierIn = new FileInputStream("C://Users//Christian poratble//git//Taquin//board.ser");
-					ois = new ObjectInputStream(fichierIn);
-					board = (Model_Board)ois.readObject();
+					final FileInputStream fichierInBoard = new FileInputStream("..//Taquin//board.ser");
+					oisBoard = new ObjectInputStream(fichierInBoard);
+					Model_Piece[][] boardSave = (Model_Piece[][])oisBoard.readObject();			
+					
+					final FileInputStream fichierBoardPosZ = new FileInputStream("..//Taquin//boardPosZ.ser");
+					oisBoardPosZ = new ObjectInputStream(fichierBoardPosZ);
+					int boardSavePosZ[] = (int[])oisBoardPosZ.readObject();
+					
+					final FileInputStream fichierBoardTime = new FileInputStream("..//Taquin//boardTime.ser");
+					oisBoardTime = new ObjectInputStream(fichierBoardTime);
+					//long boardSaveTime = (long)oisBoardTime.readObject();
+					
+					this.board = new Model_Board(boardSave, boardSavePosZ);
+					
+					SIZE = boardSave.length;			
+
+					for(int i = 0; i < SIZE ;i++) {
+						for(int j = 0; j < SIZE ;j++) {
+							int number = boardSave[i][j].getNumber(); 
+							board.setBoard(i,j,number);
+						}
+					}			
 				} catch (final java.io.FileNotFoundException e) {
 					System.out.println("Sorry neither game find, create a new game please");
 				} catch (final ClassNotFoundException e) {
 					e.printStackTrace();
 				} finally {
 					try {
-						if (ois != null) {
-						ois.close();
+						if (oisBoard != null) {
+							oisBoard.close();
 						}
 					} catch (final IOException ex) {
 					ex.printStackTrace();
@@ -70,9 +120,18 @@ public class Controller_Game implements Serializable{
 			
 			// Deserialization Player
 			try {
-				final FileInputStream fichierIn = new FileInputStream("C://Users//Christian poratble//git//Taquin//p1.ser");
-				ois = new ObjectInputStream(fichierIn);
-				p1 = (Model_Player)ois.readObject();
+				final FileInputStream fichierInP1Name = new FileInputStream("..//Taquin//p1Name.ser");
+				oisP1Name = new ObjectInputStream(fichierInP1Name);
+				String playerNameSave = (String)oisP1Name.readObject();
+				
+				final FileInputStream fichierInP1Score = new FileInputStream("..//Taquin//p1Score.ser");
+				oisP1Score = new ObjectInputStream(fichierInP1Score);
+				int playerScoreSave = (int)oisP1Score.readObject();
+
+				this.p1 = new Model_Player(playerNameSave, playerScoreSave);
+				
+				System.out.println("Game load");
+				
 			} catch (final java.io.FileNotFoundException e) {
 				System.out.println(" ");
 				
@@ -83,9 +142,9 @@ public class Controller_Game implements Serializable{
 						
 						SIZE = Configuration.sc.nextInt();
 						
-						if (SIZE < 3) {
+						if (SIZE < 4) {
 							format = false;
-
+							System.out.println("Error, please entire a size bigger than 3");
 						}
 						
 					}catch(java.util.InputMismatchException excep) {
@@ -118,8 +177,8 @@ public class Controller_Game implements Serializable{
 				e.printStackTrace();
 			} finally {
 				try {
-					if (ois != null) {
-					ois.close();
+					if (oisBoard != null) {
+						oisBoard.close();
 					}
 				} catch (final IOException ex) {
 				ex.printStackTrace();
@@ -127,7 +186,7 @@ public class Controller_Game implements Serializable{
 			}	
 			
 		}else {
-		**/
+
 			do {
 				try {
 					format = true;
@@ -135,8 +194,9 @@ public class Controller_Game implements Serializable{
 					
 					SIZE = Configuration.sc.nextInt();
 					
-					if (SIZE < 3) {
+					if (SIZE < 4) {
 						format = false;
+						System.out.println("Error, please entire a size bigger than 3");
 
 					}
 					
@@ -149,6 +209,7 @@ public class Controller_Game implements Serializable{
 			
 			do {
 				try {
+					Configuration.sc.nextLine();
 					format = true;
 					System.out.println("What's your name ?");
 					this.p1 = new Model_Player(Configuration.sc.nextLine());
@@ -160,7 +221,7 @@ public class Controller_Game implements Serializable{
 			
 			this.board = new Model_Board();
 			board.shuffle();
-
+		}
 
 		board.out();	
 		play();
@@ -173,8 +234,7 @@ public class Controller_Game implements Serializable{
 		// if file exist return false and the game load the game
 		try {
 			
-			Path pathBoard = Paths.get("..//Taquin//board.ser");
-			Path pathPlayer = Paths.get("..//Taquin//p1.ser");
+			final FileInputStream test = new FileInputStream("..//Taquin//board.ser");
 			
 			return (false);
 			
@@ -201,21 +261,43 @@ public class Controller_Game implements Serializable{
 			
 			if(move.equals("save")) {
 								
-				ObjectOutputStream oos = null;
-			
+				ObjectOutputStream oosBoard = null;
+				ObjectOutputStream oosPosZ = null;
+				ObjectOutputStream oosBoardTime = null;
+				
 				//Serialization board
 				try {
-					final FileOutputStream fichier = new FileOutputStream("board.ser");
-					oos = new ObjectOutputStream(fichier);
-					oos.writeObject(board);
-					oos.flush();
+					final FileOutputStream fichierBoard = new FileOutputStream("board.ser");
+					oosBoard = new ObjectOutputStream(fichierBoard);
+					oosBoard.writeObject(board.getBoard());
+					oosBoard.flush();
+					
+					final FileOutputStream fichierBoardPosZ = new FileOutputStream("boardPosZ.ser");
+					oosPosZ = new ObjectOutputStream(fichierBoardPosZ);
+					oosPosZ.writeObject(board.getPosZ());
+					oosPosZ.flush();
+					
+					final FileOutputStream fichierBoardTime = new FileOutputStream("boardTime.ser");
+					oosBoardTime = new ObjectOutputStream(fichierBoardTime);
+					oosBoardTime.writeObject(board.getPosZ());
+					oosBoardTime.flush();
+
 				} catch (final java.io.IOException e) {
 					e.printStackTrace();
 				} finally {
 					try {
-						if (oos != null) {
-						oos.flush();
-						oos.close();
+						if (oosBoard != null) {
+							oosBoard.flush();
+							oosBoard.close();
+						}
+					} catch (final IOException ex) {
+					ex.printStackTrace();
+					}
+					
+					try {
+						if (oosPosZ != null) {
+							oosPosZ.flush();
+							oosPosZ.close();
 						}
 					} catch (final IOException ex) {
 					ex.printStackTrace();
@@ -223,19 +305,36 @@ public class Controller_Game implements Serializable{
 				}
 				
 				//Serialization player
-				ObjectOutputStream oos2 = null;
+				ObjectOutputStream oosP1Name = null;
+				ObjectOutputStream oosP1Score = null;
+				
 				try {
-					final FileOutputStream fichier = new FileOutputStream("p1.ser");
-					oos2 = new ObjectOutputStream(fichier);
-					oos2.writeObject(p1);
-					oos2.flush();
+					final FileOutputStream fichierP1Name = new FileOutputStream("p1Name.ser");
+					oosP1Name = new ObjectOutputStream(fichierP1Name);
+					oosP1Name.writeObject(p1.getName());
+					oosP1Name.flush();
+					
+					final FileOutputStream fichierP1Score = new FileOutputStream("p1Score.ser");
+					oosP1Score = new ObjectOutputStream(fichierP1Score);
+					oosP1Score.writeObject(p1.getNbMoves());
+					oosP1Score.flush();
+					
 				} catch (final java.io.IOException e) {
 					e.printStackTrace();
 				} finally {
 					try {
-						if (oos2 != null) {
-						oos2.flush();
-						oos2.close();
+						if (oosP1Name != null) {
+							oosP1Name.flush();
+							oosP1Name.close();
+						}
+					} catch (final IOException ex) {
+					ex.printStackTrace();
+					}
+					
+					try {
+						if (oosP1Score != null) {
+							oosP1Score.flush();
+							oosP1Score.close();
 						}
 					} catch (final IOException ex) {
 					ex.printStackTrace();

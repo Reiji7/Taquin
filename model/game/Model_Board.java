@@ -15,7 +15,7 @@ public class Model_Board extends Observable implements Serializable{
 	private static final long serialVersionUID = -8157892195810236408L;
 	private Model_Piece[][] board;
 	private int moves;
-	private int posZ[];
+	private int posZ[];			//
 	private long time;
 	
 	
@@ -32,6 +32,12 @@ public class Model_Board extends Observable implements Serializable{
 			}
 		}
 	}
+	
+	public Model_Board(Model_Piece[][] boardSave, int posZSave[]) {
+		this.board = boardSave;
+		this.moves = 0;
+		this.posZ = posZSave;
+	}
 		
 	
 	/**
@@ -42,6 +48,13 @@ public class Model_Board extends Observable implements Serializable{
 		return this.moves;
 	}
 	
+	public int[] getPosZ () {
+		return this.posZ;
+	}
+	
+	public void setBoard(int x, int y, int number) {
+		this.board[x][y] = new Model_Piece(number);
+	}
 	
 	/**
 	 * Give time of this game
@@ -75,6 +88,10 @@ public class Model_Board extends Observable implements Serializable{
 	 */
 	public Model_Piece[][] getBoard(){
 		return this.board;
+	}
+	
+	public Model_Piece getBoard(int x,int y){
+		return this.board[x][y];
 	}
 	
 	
