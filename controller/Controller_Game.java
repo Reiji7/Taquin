@@ -4,36 +4,59 @@ import model.game.Model_Board;
 import model.game.Model_Piece;
 import model.game.Model_Player;
 import resources.Configuration;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
+import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
 /**
  * Game controller containing basic game mechanics
  * @see model.game
- * @author Adrien
  * @version 1.0 
  */
-public class Controller_Game implements Serializable{
+public class Controller_Game  extends Controler{
 
 	private Model_Board board;
 	private Model_Player p1;
 	private boolean format;
 	private String move = "";
 	
-	public static int SIZE;
+	public static int SIZE = 4;
 	
 	public Model_Board getBoard() {
 		return(this.board);
 	}
 	
+	
+	public Controller_Game(Model_Board mb, Model_Player mp) {
+		this.board = mb;
+		this.p1 = mp;
+	}
+	
+	
+	public void start() throws IOException {	
+		do {
+			
+			
+			
+			board.out();
+			p1.setNbMoves(board.getMoves());
+
+		}while(!board.check());	
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	/**
 	public void start() throws IOException {
 		
 		
@@ -93,7 +116,8 @@ public class Controller_Game implements Serializable{
 					oisBoardTime = new ObjectInputStream(fichierBoardTime);
 					//long boardSaveTime = (long)oisBoardTime.readObject();
 					
-					this.board = new Model_Board(boardSave, boardSavePosZ);
+					// Probleme a voir 
+					//this.board = new Model_Board(boardSave, boardSavePosZ);
 					
 					SIZE = boardSave.length;			
 
@@ -353,5 +377,5 @@ public class Controller_Game implements Serializable{
 
 		}while(!board.check());
 	}
-
+	**/
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Observable;
 
 import controller.Controller_Game;
+import resources.Position;
 
 /**
  * Basic game mechanics
@@ -15,7 +16,7 @@ public class Model_Board extends Observable implements Serializable{
 	private static final long serialVersionUID = -8157892195810236408L;
 	private Model_Piece[][] board;
 	private int moves;
-	private int posZ[];			//
+	private Position posZ;
 	private long time;
 	
 	
@@ -23,7 +24,7 @@ public class Model_Board extends Observable implements Serializable{
 		this.board = new Model_Piece[Controller_Game.SIZE][Controller_Game.SIZE];
 		this.moves = 0;
 		this.time = System.currentTimeMillis();
-		this.posZ = new int[2];
+		this.posZ = new Position();
 				
 		for(int index = 0, index1 = 0; index1 < Controller_Game.SIZE ; index1++) {
 			for(int index2 = 0; index2 < Controller_Game.SIZE ; index2++) {
@@ -33,7 +34,7 @@ public class Model_Board extends Observable implements Serializable{
 		}
 	}
 	
-	public Model_Board(Model_Piece[][] boardSave, int posZSave[]) {
+	public Model_Board(Model_Piece[][] boardSave, Position posZSave) {
 		this.board = boardSave;
 		this.moves = 0;
 		this.posZ = posZSave;
@@ -48,7 +49,7 @@ public class Model_Board extends Observable implements Serializable{
 		return this.moves;
 	}
 	
-	public int[] getPosZ () {
+	public Position getPosZ () {
 		return this.posZ;
 	}
 	
@@ -75,8 +76,8 @@ public class Model_Board extends Observable implements Serializable{
 		for(int index1 = 0; index1 < Controller_Game.SIZE ; index1++) {
 			for(int index2 = 0; index2 < Controller_Game.SIZE ; index2++) {
 				if(board[index1][index2].getNumber() == 0){
-					this.posZ[0] = index1;
-					this.posZ[1] = index2;
+					this.posZ.x = index1;
+					this.posZ.y = index2;
 				}
 			}
 		}
@@ -102,7 +103,7 @@ public class Model_Board extends Observable implements Serializable{
 	 * @return 
 	 */
 	public boolean play(String move) {
-		int index = posZ[0] * Controller_Game.SIZE + posZ[1];
+		int index = posZ.x * Controller_Game.SIZE + posZ.y;
 		switch(move) {
 		case "up":
 			if(index + Controller_Game.SIZE < (Controller_Game.SIZE * Controller_Game.SIZE)) {
@@ -145,7 +146,7 @@ public class Model_Board extends Observable implements Serializable{
 	 * @return
 	 */
 	private boolean move(int destination) {
-		return move(posZ[1] + posZ[0] * Controller_Game.SIZE, destination);
+		return move(posZ.x + posZ.y * Controller_Game.SIZE, destination);
 	}
 	
 	
@@ -197,8 +198,8 @@ public class Model_Board extends Observable implements Serializable{
 			board[destinX][destinY] = board[departX][departY];
 			board[departX][departY] = tampon;
 			
-			this.posZ[0] = destinX;
-			this.posZ[1] = destinY;
+			this.posZ.x = destinX;
+			this.posZ.y = destinY;
 			
 			return true;
 		}
@@ -230,7 +231,6 @@ public class Model_Board extends Observable implements Serializable{
 		for(int index1 = 0; index1 < Controller_Game.SIZE; index1++) {
 			System.out.print("|");
 			for(int index2 = 0; index2 < Controller_Game.SIZE; index2++) {
-				int position = Controller_Game.SIZE * index1 + index2;
 				if(board[index1][index2].getNumber() < 10)
 					System.out.print(" 0" + board[index1][index2].getNumber() + " ");
 				else
