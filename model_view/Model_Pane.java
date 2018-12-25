@@ -1,21 +1,20 @@
-package view;
+package model_view;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import resources.Position;
 
-public class APane {
+public class Model_Pane {
 	
 	private static AnchorPane anchorpane;
 	
 	
-	public APane() {
+	public Model_Pane() {
 		anchorpane = new AnchorPane();
 	}
 	
 	
 	public void add(Node component, Position position){
-		 
 		anchorpane.getChildren().add(component);
 		AnchorPane.setTopAnchor(component, (double)position.x);
 		AnchorPane.setLeftAnchor(component, (double)position.y); 

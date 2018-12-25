@@ -1,5 +1,7 @@
 package view;
 
+import view.game.View_Game;
+
 public class View_Manager {
 
 	private View_Game view_game;

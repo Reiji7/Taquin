@@ -4,11 +4,18 @@ import model.game.Model_Board;
 import model.game.Model_Piece;
 import model.game.Model_Player;
 import resources.Configuration;
+import resources.Position;
+import view.game.View_Game;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.awt.event.ActionEvent;
+
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
+import javafx.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
@@ -17,8 +24,9 @@ import java.io.ObjectInputStream;
  * @see model.game
  * @version 1.0 
  */
-public class Controller_Game  extends Controler{
+public class Controller_Game extends Controller{
 
+	private View_Game view;
 	private Model_Board board;
 	private Model_Player p1;
 	private boolean format;
@@ -37,26 +45,56 @@ public class Controller_Game  extends Controler{
 	}
 	
 	
+	public Controller_Game(View_Game view) {
+		this.view = view;
+	}
+	
+	
+	private void listenAllButtons(){
+		for(int i=0; i< Controller_Game.SIZE; i++){
+			for(int j=0; j < Controller_Game.SIZE; j++){
+				listenButton(view.getGrid().getButton(
+						new Position(i, j)), new Position(i, j));
+			}
+		}
+	}
+	
+	
+	
+	
+	private void listenButton(Button button, Position position){
+		button.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+	        	   updateClickedButton(button, position);
+			}
+	    });
+	}
+
+	
+	private void updateClickedButton(Button button, Position position){
+		
+		
+		
+		setChanged();
+   		notifyObservers();
+	}
+
+
+	public void start() {
+		
+	}
+	
+
+	/**
 	public void start() throws IOException {	
 		do {
-			
-			
-			
 			board.out();
 			p1.setNbMoves(board.getMoves());
 
 		}while(!board.check());	
 	}
 
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 	
-	
-	/**
 	public void start() throws IOException {
 		
 		

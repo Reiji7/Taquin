@@ -3,8 +3,8 @@ package controller;
 import java.io.IOException;
 
 import model.Model_Manager;
-import view.View_Game;
 import view.View_Manager;
+import view.game.View_Game;
 
 
 public class Controller_Main{
@@ -18,7 +18,6 @@ public class Controller_Main{
 		view_game = view.getView_game();
 		
 		model.getMb().addObserver(view.getView_game());
-		//view_game.addActionListener(controller_game);
 	}
 
 

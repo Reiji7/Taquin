@@ -8,6 +8,8 @@ import java.util.Scanner;
  * @version 1.0 
  */
 public class Configuration {
+	
+	public static boolean consol = true;
 
 	public static final Scanner sc = new Scanner(System.in);
 	
