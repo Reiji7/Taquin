@@ -12,8 +12,8 @@ import javafx.event.EventHandler;
 
 public class Choose implements Observable{ 
 
-	private Button console, graphique;
-	private Scene scene;
+	public Button console, graphique;
+	protected Scene scene;
 	
 	
 	public Scene getScene() {
@@ -26,16 +26,17 @@ public class Choose implements Observable{
 		
 		console.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
+		        resources.Configuration.consol = true;
 		        // Ajouter la fermeture de la fenetre
 		    }
 		});
 		
 		graphique.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		        resources.Configuration.consol = true;
 		        // Ajouter la fermeture de la fenetre
 		    }
 		});
+		
 		
 		pane.setBottom(console);
 		pane.setTop(graphique);
@@ -49,6 +50,7 @@ public class Choose implements Observable{
 
 	@Override
 	public void addListener(InvalidationListener arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -58,5 +60,4 @@ public class Choose implements Observable{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

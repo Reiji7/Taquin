@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Configuration {
 	
-	public static boolean consol = true;
+	public static boolean consol = false;
 
 	public static final Scanner sc = new Scanner(System.in);
 	

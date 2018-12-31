@@ -36,7 +36,7 @@ public class Model_Manager {
 				System.out.println("What's your name ?");
 				
 				mp = new Model_Player("Bob !");
-				//mp = new Model_Player(Configuration.sc.nextLine());
+				mp = new Model_Player(Configuration.sc.nextLine());
 			}catch(java.util.InputMismatchException e) {
 				format = false;
 			}
