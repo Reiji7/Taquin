@@ -1,17 +1,15 @@
 package model.game;
 
-import java.io.Serializable;
-import java.util.Observable;
 
 import controller.Controller_Game;
+import model.Model;
 import resources.Position;
 
 /**
  * Basic game mechanics
- * @author Adrien
  * @version 1.0 
  */
-public class Model_Board extends Observable implements Serializable{
+public class Model_Board extends Model{
 
 	private static final long serialVersionUID = -8157892195810236408L;
 	private Model_Piece[][] board;
