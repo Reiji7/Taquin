@@ -4,13 +4,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene; 
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import java.util.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 
-public class Choose implements Observable{ 
+public class Choose extends Observable{ 
 
 	public Button console, graphique;
 	protected Scene scene;
@@ -27,13 +26,15 @@ public class Choose implements Observable{
 		console.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		        resources.Configuration.consol = true;
-		        // Ajouter la fermeture de la fenetre
+		        setChanged();
+		   		notifyObservers();
 		    }
 		});
 		
 		graphique.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		        // Ajouter la fermeture de la fenetre
+		    	setChanged();
+		   		notifyObservers();
 		    }
 		});
 		
@@ -47,17 +48,4 @@ public class Choose implements Observable{
 		return scene;
 	}
 
-
-	@Override
-	public void addListener(InvalidationListener arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void removeListener(InvalidationListener arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 }

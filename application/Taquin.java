@@ -16,7 +16,7 @@ import view.choose.Choose;
 
 public class Taquin extends Application implements Observer{
 
-	//private Model_Manager model;
+	private Model_Manager model;
 	private View_Manager view;
 	private Controller_Main controler;
 	private Stage primaryStage;
@@ -31,17 +31,17 @@ public class Taquin extends Application implements Observer{
 	public void start(Stage primaryStage) throws Exception {
 
 		view = new View_Manager();
-		//model = new Model_Manager();
+		model = new Model_Manager();
 		choose = new Choose();
 		this.primaryStage = primaryStage;
 
-		//this.choose.console.addObserver(this);
-
+		choose.addObserver(this);
 		primaryStage.setResizable(false);
 	    primaryStage.setTitle("Taquin");
 	    
 	    primaryStage.setScene(choose.getScene());
-	    
+	    primaryStage.show();
+    
 	}
 	
 	
@@ -64,11 +64,9 @@ public class Taquin extends Application implements Observer{
 		try {
 			controler.start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
         exitApplication(primaryStage);				
 	}
 
